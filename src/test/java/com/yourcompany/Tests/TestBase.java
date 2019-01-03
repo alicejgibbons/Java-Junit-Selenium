@@ -123,7 +123,10 @@ public class TestBase implements SauceOnDemandSessionIdProvider {
         //Using the Jenkins ENV var. You can use your own. If it is not set test will run without a build id.
         if (buildTag != null) {
             capabilities.setCapability("build", buildTag);
+        } else {
+            capabilities.setCapability("build", System.getEnv("SAUCE_BUILD_NAME"));
         }
+        
         this.driver = new RemoteWebDriver(
                 new URL("https://" + username+ ":" + accesskey + seleniumURI +"/wd/hub"),
                 capabilities);
